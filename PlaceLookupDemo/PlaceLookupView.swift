@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct PlaceLookupView: View {
     @EnvironmentObject var locationManager: LocationManager
     @StateObject var placeVM = PlaceViewModel()
     @State private var searchText = ""
+    @Binding var returnedPlace: Place
     @Environment(\.dismiss) private var dismiss
     var places = ["Kenya", "Tanzania", "Democratic Republic of Congo", "Everywhere", "East Jabib"]
     
@@ -23,6 +25,10 @@ struct PlaceLookupView: View {
                         .font(.title2)
                     Text(place.address)
                         .font(.callout)
+                }
+                .onTapGesture {
+                    returnedPlace = place
+                    dismiss()
                 }
             }
             .listStyle(.plain)
@@ -46,6 +52,6 @@ struct PlaceLookupView: View {
 }
 
 #Preview {
-    PlaceLookupView()
+    PlaceLookupView(returnedPlace: .constant(Place(mapItem: MKMapItem())))
         .environmentObject(LocationManager())
 }

@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     @EnvironmentObject var locationManager: LocationManager
     @State private var showPlaceLookupSheet = false
+    @State var returnedPlace = Place(mapItem: MKMapItem())
     
     var body: some View {
      NavigationStack{
         VStack {
             Text("Location:\n\(locationManager.location?.coordinate.latitude ?? 0.0), \(locationManager.location?.coordinate.longitude ?? 0.0) ")
                 .padding(.bottom)
+            
+            Text("Returned Place: \nName: \(returnedPlace.name)\n\(returnedPlace.address)\nCoordinates: \(returnedPlace.longitude), \(returnedPlace.latitude)")
         }
         .padding()
         .toolbar{
@@ -30,7 +34,7 @@ struct ContentView: View {
             }
         }
      .fullScreenCover(isPresented: $showPlaceLookupSheet) {
-         PlaceLookupView()
+         PlaceLookupView(returnedPlace: $returnedPlace)
          
      }
     }
