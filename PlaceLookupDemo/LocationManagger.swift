@@ -1,9 +1,10 @@
 //
-//  LoccationManager.swift
+//  LocationManager.swift
 //  PlaceLookupDemo
 //
-//  Created by Mac User on 10/5/23.
+//  Created by Mac User on 10/6/23.
 //
+
 import Foundation
 import MapKit
 
@@ -25,7 +26,7 @@ class LocationManager: NSObject, ObservableObject {
 }
 
 extension LocationManager: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, 
+    func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         self.location = location
